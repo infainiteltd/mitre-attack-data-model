@@ -1,4 +1,5 @@
 import { z } from 'zod/v4';
+import { validateNoDuplicates } from '../../refinements/index.js';
 import { attackBaseDomainObjectSchema } from '../common/index.js';
 import {
   createAttackExternalReferencesSchema,
@@ -8,7 +9,6 @@ import {
   xMitreDomainsSchema,
   xMitreModifiedByRefSchema,
 } from '../common/property-schemas/index.js';
-import { validateNoDuplicates } from '../../refinements/index.js';
 
 //==============================================================================
 //
@@ -26,7 +26,7 @@ export const detectionStrategySchema = attackBaseDomainObjectSchema
 
     x_mitre_modified_by_ref: xMitreModifiedByRefSchema,
 
-    x_mitre_contributors: xMitreContributorsSchema,
+    x_mitre_contributors: xMitreContributorsSchema.optional(),
 
     x_mitre_analytic_refs: z
       .array(createStixIdValidator('x-mitre-analytic'))
